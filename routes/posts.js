@@ -8,11 +8,14 @@ const router = express.Router()
 const io = new Server(3001)
 
 io.on('connection', socket => {
-  a.Messages.watch().on('change', change => {
-    socket.emit('new-message-' + change.fullDocument.contactId, change)
-    console.log(change)
-  })
+ 
 })
+
+a.Messages.watch().on('change', change => {
+  io.emit('new-message-' + change.fullDocument.contactId, change)
+  console.log(change)
+})
+
 // Ad Routs
 
 router.post('/posts', function (req, res) {

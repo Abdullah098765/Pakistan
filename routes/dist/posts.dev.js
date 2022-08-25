@@ -18,12 +18,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 var io = new _socket.Server(3001);
-io.on('connection', function (socket) {
-  _adData["default"].Messages.watch().on('change', function (change) {
-    socket.emit('new-message-' + change.fullDocument.contactId, change);
-    console.log(change);
-  });
+io.on('connection', function (socket) {});
+
+_adData["default"].Messages.watch().on('change', function (change) {
+  io.emit('new-message-' + change.fullDocument.contactId, change);
+  console.log(change);
 }); // Ad Routs
+
 
 router.post('/posts', function (req, res) {
   if (req.body.id !== undefined) {
