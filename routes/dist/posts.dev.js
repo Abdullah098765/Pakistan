@@ -18,15 +18,45 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 var io = new _socket.Server(3001);
-io.on('connection', function (socket) {});
+io.on('connection', function (socket) {
+  // console.log('connected') // false
+  // socket.on('new-position', position => {
+  //   // socket.emit('text', b)
+  //   console.log(position);
+  // })
+  socket.on('disconnect', function (reason) {// console.log('disconnect ', socket.handshake.query.name)
+  });
+});
 
 _adData["default"].Messages.watch().on('change', function (change) {
-  io.emit('new-message-' + change.fullDocument.contactId, change);
-  console.log(change);
+  io.emit('new-message-' + change.fullDocument.contactId, change); // console.log(change)
+}); // User
+
+
+router.post('/user', function (req, res) {
+  var user = new _adData["default"].User({
+    displayName: req.body.displayName,
+    email: req.body.email,
+    uid: req.body.uid,
+    photoURL: req.body.photoURL
+  });
+  user.save();
+
+  _adData["default"].User.find().then(function (e) {
+    res.send(e); // console.log(e)
+  });
+});
+router.post('/get-user', function (req, res) {
+  _adData["default"].User.findOne({
+    uid: req.body.uid
+  }).then(function (e) {
+    res.send(e); // console.log(e)
+  });
 }); // Ad Routs
 
-
 router.post('/posts', function (req, res) {
+  console.log(req.body);
+
   if (req.body.id !== undefined) {
     _adData["default"].AdData.findOne({
       _id: req.body.id

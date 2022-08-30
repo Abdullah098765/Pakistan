@@ -17,6 +17,10 @@ var adSchema = _mongoose["default"].Schema({
   city: String,
   img: String,
   price: String,
+  seller: {
+    type: _mongoose["default"].Types.ObjectId,
+    ref: 'user'
+  },
   ownerName: String,
   ownerId: String,
   tage: [String],
@@ -33,17 +37,21 @@ var adSchema = _mongoose["default"].Schema({
 
 var contactsSchema = _mongoose["default"].Schema({
   adName: String,
-  sellerName: String,
-  sellerUid: String,
   adImg: String,
   online: Boolean,
   price: String,
-  clientName: String,
-  clientId: String,
+  client: {
+    type: _mongoose["default"].Types.ObjectId,
+    ref: 'user'
+  },
   ownerId: String,
   ad: {
     type: _mongoose["default"].Types.ObjectId,
     ref: 'addatas'
+  },
+  seller: {
+    type: _mongoose["default"].Types.ObjectId,
+    ref: 'user'
   },
   tage: [String],
   selectFile: String,
@@ -55,6 +63,14 @@ var contactsSchema = _mongoose["default"].Schema({
     type: Date,
     "default": new Date()
   }
+});
+
+var userSchema = _mongoose["default"].Schema({
+  displayName: String,
+  email: String,
+  uid: String,
+  photoURL: String,
+  isOnline: Boolean
 });
 
 var messagesSchema = _mongoose["default"].Schema({
@@ -73,6 +89,8 @@ var messagesSchema = _mongoose["default"].Schema({
   }
 });
 
+var User = _mongoose["default"].model('user', userSchema);
+
 var AdData = _mongoose["default"].model('addatas', adSchema);
 
 var ContactWithSeller = _mongoose["default"].model('contactwithseller', contactsSchema);
@@ -82,6 +100,7 @@ var Messages = _mongoose["default"].model('messages', messagesSchema);
 var _default = {
   AdData: AdData,
   ContactWithSeller: ContactWithSeller,
-  Messages: Messages
+  Messages: Messages,
+  User: User
 };
 exports["default"] = _default;

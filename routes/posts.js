@@ -8,17 +8,51 @@ const router = express.Router()
 const io = new Server(3001)
 
 io.on('connection', socket => {
- 
+  // console.log('connected') // false
+
+  // socket.on('new-position', position => {
+  //   // socket.emit('text', b)
+  //   console.log(position);
+
+  // })
+
+  socket.on('disconnect', reason => {
+    // console.log('disconnect ', socket.handshake.query.name)
+  })
 })
 
 a.Messages.watch().on('change', change => {
   io.emit('new-message-' + change.fullDocument.contactId, change)
-  console.log(change)
+  // console.log(change)
+})
+
+// User
+
+router.post('/user', function (req, res) {
+  const user = new a.User({
+    displayName: req.body.displayName,
+    email: req.body.email,
+    uid: req.body.uid,
+    photoURL: req.body.photoURL
+  })
+  user.save()
+  a.User.find().then(e => {
+    res.send(e)
+    // console.log(e)
+  })
+})
+router.post('/get-user', function (req, res) {
+ 
+  a.User.findOne({uid:req.body.uid}).then(e => {
+    res.send(e)
+    // console.log(e)
+  })
 })
 
 // Ad Routs
 
 router.post('/posts', function (req, res) {
+  console.log(req.body);
   if (req.body.id !== undefined) {
     a.AdData.findOne({ _id: req.body.id })
       .then(e => {

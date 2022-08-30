@@ -8,6 +8,7 @@ const adSchema = mongoose.Schema({
   city: String,
   img: String,
   price: String,
+  seller: { type: mongoose.Types.ObjectId, ref: 'user' },
   ownerName: String,
   ownerId: String,
   tage: [String],
@@ -23,15 +24,13 @@ const adSchema = mongoose.Schema({
 })
 const contactsSchema = mongoose.Schema({
   adName: String,
-  sellerName: String,
-  sellerUid: String,
   adImg: String,
   online: Boolean,
   price: String,
-  clientName: String,
-  clientId: String,
+  client: { type: mongoose.Types.ObjectId, ref: 'user' },
   ownerId: String,
   ad: { type: mongoose.Types.ObjectId, ref: 'addatas' },
+  seller: { type: mongoose.Types.ObjectId, ref: 'user' },
   tage: [String],
   selectFile: String,
   likeCount: {
@@ -42,6 +41,13 @@ const contactsSchema = mongoose.Schema({
     type: Date,
     default: new Date()
   }
+})
+const userSchema = mongoose.Schema({
+  displayName: String,
+  email: String,
+  uid: String,
+  photoURL: String,
+  isOnline: Boolean
 })
 const messagesSchema = mongoose.Schema({
   message: String,
@@ -59,8 +65,9 @@ const messagesSchema = mongoose.Schema({
   }
 })
 
+let User = mongoose.model('user', userSchema)
 let AdData = mongoose.model('addatas', adSchema)
 let ContactWithSeller = mongoose.model('contactwithseller', contactsSchema)
 let Messages = mongoose.model('messages', messagesSchema)
 
-export default { AdData, ContactWithSeller, Messages }
+export default { AdData, ContactWithSeller, Messages, User }
