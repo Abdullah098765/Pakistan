@@ -60,9 +60,9 @@ router.post('/posts', function (req, res) {
       })
       .catch(err => {})
 
-    a.AdData.where()
+    a.AdData.where({ _id: req.body.id })
       .populate('user')
-      .findOne({ _id: req.body.id })
+      .findOne()
       .then(e => {
         res.send(e)
       })

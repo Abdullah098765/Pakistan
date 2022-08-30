@@ -62,9 +62,9 @@ router.post('/posts', function (req, res) {
       res.send(e);
     })["catch"](function (err) {});
 
-    _adData["default"].AdData.where().populate('user').findOne({
+    _adData["default"].AdData.where({
       _id: req.body.id
-    }).then(function (e) {
+    }).populate('user').findOne().then(function (e) {
       res.send(e);
     });
   } else {
