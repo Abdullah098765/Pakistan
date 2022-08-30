@@ -56,15 +56,15 @@ router.post('/get-user', function (req, res) {
 
 router.post('/posts', function (req, res) {
   if (req.body.id !== undefined) {
-    _adData["default"].AdData.populate('user').findOne({
-      _id: req.body.id
-    }).then(function (e) {
-      res.send(e);
-    })["catch"](function (err) {});
-
+    // a.AdData.populate('user')
+    //   .findOne({ _id: req.body.id })
+    //   .then(e => {
+    //     res.send(e)
+    //   })
+    //   .catch(err => {})
     _adData["default"].AdData.where({
       _id: req.body.id
-    }).populate('user').findOne().then(function (e) {
+    }).populate('seller').findOne().then(function (e) {
       res.send(e);
     });
   } else {

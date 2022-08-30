@@ -52,16 +52,16 @@ router.post('/get-user', function (req, res) {
 
 router.post('/posts', function (req, res) {
   if (req.body.id !== undefined) {
-    a.AdData.populate('user')
-      .findOne({ _id: req.body.id })
+    // a.AdData.populate('user')
+    //   .findOne({ _id: req.body.id })
 
-      .then(e => {
-        res.send(e)
-      })
-      .catch(err => {})
+    //   .then(e => {
+    //     res.send(e)
+    //   })
+    //   .catch(err => {})
 
     a.AdData.where({ _id: req.body.id })
-      .populate('user')
+      .populate('seller')
       .findOne()
       .then(e => {
         res.send(e)
