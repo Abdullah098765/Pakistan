@@ -129,6 +129,7 @@ router.post('/my_contacts', function (req, res) {
 router.post('/messages', function (req, res) {
   var message = new _adData["default"].Messages(req.body);
   message.save();
+  console.log(req.body);
 
   _adData["default"].Messages.find().then(function (e) {
     res.send(e);

@@ -136,6 +136,7 @@ router.post('/my_contacts', function (req, res) {
 router.post('/messages', function (req, res) {
   const message = new a.Messages(req.body)
   message.save()
+  console.log(req.body);
   a.Messages.find().then(e => {
     res.send(e)
   })
