@@ -41,6 +41,8 @@ var contactsSchema = _mongoose["default"].Schema({
   online: Boolean,
   price: String,
   ownerId: String,
+  sellerUid: String,
+  clientId: String,
   ad: {
     type: _mongoose["default"].Types.ObjectId,
     ref: 'addatas'

@@ -28,6 +28,8 @@ const contactsSchema = mongoose.Schema({
   online: Boolean,
   price: String,
   ownerId: String,
+  sellerUid: String,
+  clientId: String,
   ad: { type: mongoose.Types.ObjectId, ref: 'addatas' },
   seller: { type: mongoose.Types.ObjectId, ref: 'user' },
   client: { type: mongoose.Types.ObjectId, ref: 'user' },
