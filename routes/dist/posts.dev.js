@@ -111,6 +111,8 @@ router.post('/contacts', function (req, res) {
   _adData["default"].ContactWithSeller.find().then(function (e) {
     res.send(e);
   });
+
+  console.log('tid');
 });
 router.post('/my_contacts', function (req, res) {
   _adData["default"].ContactWithSeller.where({

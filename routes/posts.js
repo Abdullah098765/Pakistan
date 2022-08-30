@@ -108,6 +108,8 @@ router.post('/contacts', function (req, res) {
   a.ContactWithSeller.find().then(e => {
     res.send(e)
   })
+  console.log('tid');
+
 })
 
 router.post('/my_contacts', function (req, res) {
