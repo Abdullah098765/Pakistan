@@ -40,16 +40,16 @@ var contactsSchema = _mongoose["default"].Schema({
   adImg: String,
   online: Boolean,
   price: String,
-  client: {
-    type: _mongoose["default"].Types.ObjectId,
-    ref: 'user'
-  },
   ownerId: String,
   ad: {
     type: _mongoose["default"].Types.ObjectId,
     ref: 'addatas'
   },
   seller: {
+    type: _mongoose["default"].Types.ObjectId,
+    ref: 'user'
+  },
+  client: {
     type: _mongoose["default"].Types.ObjectId,
     ref: 'user'
   },

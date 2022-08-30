@@ -121,6 +121,8 @@ router.post('/my_contacts', function (req, res) {
     ]
   })
     .populate('ad')
+    .populate('seller')
+    .populate('client')
     .find()
     .then(e => {
       res.send(e)

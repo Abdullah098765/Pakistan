@@ -27,10 +27,10 @@ const contactsSchema = mongoose.Schema({
   adImg: String,
   online: Boolean,
   price: String,
-  client: { type: mongoose.Types.ObjectId, ref: 'user' },
   ownerId: String,
   ad: { type: mongoose.Types.ObjectId, ref: 'addatas' },
   seller: { type: mongoose.Types.ObjectId, ref: 'user' },
+  client: { type: mongoose.Types.ObjectId, ref: 'user' },
   tage: [String],
   selectFile: String,
   likeCount: {

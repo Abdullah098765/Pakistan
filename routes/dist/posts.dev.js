@@ -118,7 +118,7 @@ router.post('/my_contacts', function (req, res) {
     }, {
       sellerUid: req.body.inboxId
     }]
-  }).populate('ad').find().then(function (e) {
+  }).populate('ad').populate('seller').populate('client').find().then(function (e) {
     res.send(e);
   }); // a.ContactWithSeller.findOneAndDelete({ clientName:'Sabir Ali.'}).then(deleted => {
   // })
