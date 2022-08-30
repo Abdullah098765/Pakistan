@@ -33,6 +33,7 @@ router.post('/user', function (req, res) {
     displayName: req.body.displayName,
     email: req.body.email,
     uid: req.body.uid,
+    isOnline:null,
     photoURL: req.body.photoURL
   })
   user.save()
