@@ -52,9 +52,10 @@ router.post('/get-user', function (req, res) {
 // Ad Routs
 
 router.post('/posts', function (req, res) {
-  console.log(req.body);
   if (req.body.id !== undefined) {
     a.AdData.findOne({ _id: req.body.id })
+    .populate('user')
+    
       .then(e => {
         res.send(e)
       })

@@ -55,12 +55,10 @@ router.post('/get-user', function (req, res) {
 }); // Ad Routs
 
 router.post('/posts', function (req, res) {
-  console.log(req.body);
-
   if (req.body.id !== undefined) {
     _adData["default"].AdData.findOne({
       _id: req.body.id
-    }).then(function (e) {
+    }).populate('user').then(function (e) {
       res.send(e);
     })["catch"](function (err) {});
   } else {
