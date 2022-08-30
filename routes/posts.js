@@ -53,8 +53,8 @@ router.post('/get-user', function (req, res) {
 
 router.post('/posts', function (req, res) {
   if (req.body.id !== undefined) {
-    a.AdData.findOne({ _id: req.body.id })
-    .populate('user')
+    a.AdData.populate('user').findOne({ _id: req.body.id })
+    
     
       .then(e => {
         res.send(e)

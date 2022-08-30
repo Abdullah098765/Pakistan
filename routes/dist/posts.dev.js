@@ -56,9 +56,9 @@ router.post('/get-user', function (req, res) {
 
 router.post('/posts', function (req, res) {
   if (req.body.id !== undefined) {
-    _adData["default"].AdData.findOne({
+    _adData["default"].AdData.populate('user').findOne({
       _id: req.body.id
-    }).populate('user').then(function (e) {
+    }).then(function (e) {
       res.send(e);
     })["catch"](function (err) {});
   } else {
