@@ -110,7 +110,6 @@ router.post('/contacts', function (req, res) {
 })
 
 router.post('/my_contacts', function (req, res) {
-  console.log(req.body);
   a.ContactWithSeller.where({
     $or: [
       {

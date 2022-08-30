@@ -112,8 +112,6 @@ router.post('/contacts', function (req, res) {
   });
 });
 router.post('/my_contacts', function (req, res) {
-  console.log(req.body);
-
   _adData["default"].ContactWithSeller.where({
     $or: [{
       clientId: req.body.inboxId
