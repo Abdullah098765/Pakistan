@@ -13,10 +13,7 @@ const adSchema = mongoose.Schema({
   ownerId: String,
   tage: [String],
   selectFile: String,
-  likeCount: {
-    type: Number,
-    default: 0
-  },
+  viwesCount:[],
   creatAt: {
     type: Date,
     default: new Date()
@@ -35,10 +32,7 @@ const contactsSchema = mongoose.Schema({
   client: { type: mongoose.Types.ObjectId, ref: 'user' },
   tage: [String],
   selectFile: String,
-  likeCount: {
-    type: Number,
-    default: 0
-  },
+  viwesCount: [],
   creatAt: {
     type: Date,
     default: new Date()

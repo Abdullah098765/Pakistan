@@ -19,17 +19,27 @@ var router = _express["default"].Router();
 
 var io = new _socket.Server(3001);
 io.on('connection', function (socket) {
-  // console.log('connected') // false
-  // socket.on('new-position', position => {
-  //   // socket.emit('text', b)
-  //   console.log(position);
-  // })
-  socket.on('disconnect', function (reason) {// console.log('disconnect ', socket.handshake.query.name)
+  // console.log('connection', socket.handshake.query.name)
+  _adData["default"].User.where({
+    uid: socket.handshake.query.name
+  }).updateOne({
+    isOnline: true
+  }).exec();
+
+  socket.on('disconnect', function (reason) {
+    _adData["default"].User.where({
+      uid: socket.handshake.query.name
+    }).updateOne({
+      isOnline: false
+    }).exec(); // console.log('disconnect',socket.handshake.query.name)
+    // console.log('disconnect ', socket.handshake.query.name)
+
   });
 });
 
 _adData["default"].Messages.watch().on('change', function (change) {
-  io.emit('new-message-' + change.fullDocument.contactId, change); // console.log(change)
+  io.emit('new-message-' + change.fullDocument.contactId, change);
+  console.log(change);
 }); // User
 
 
@@ -96,6 +106,27 @@ router.post('/get_my_ads', function (req, res) {
     res.send(e);
   });
 });
+router.post('/views', function (req, res) {
+  console.log(req.body);
+
+  _adData["default"].AdData.where({
+    viwesCount: {
+      $in: req.body.viewerId
+    }
+  }).findOne(function (err, data) {
+    console.log(data);
+  });
+
+  _adData["default"].AdData.updateOne({
+    _id: req.body.id
+  }, {
+    $push: {
+      viwesCount: req.body.viewerId
+    }
+  }).then(function (e) {
+    console.log(e);
+  });
+});
 router.post('/delete', function (req, res) {
   _adData["default"].AdData.findOneAndDelete({
     _id: req.body.idForDelete
@@ -105,14 +136,13 @@ router.post('/delete', function (req, res) {
 }); //Contacts Routs
 
 router.post('/contacts', function (req, res) {
+  console.log('tid');
   var contact = new _adData["default"].ContactWithSeller(req.body);
   contact.save();
 
   _adData["default"].ContactWithSeller.find().then(function (e) {
     res.send(e);
   });
-
-  console.log('tid');
 });
 router.post('/my_contacts', function (req, res) {
   _adData["default"].ContactWithSeller.where({

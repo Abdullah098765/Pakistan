@@ -25,10 +25,7 @@ var adSchema = _mongoose["default"].Schema({
   ownerId: String,
   tage: [String],
   selectFile: String,
-  likeCount: {
-    type: Number,
-    "default": 0
-  },
+  viwesCount: [],
   creatAt: {
     type: Date,
     "default": new Date()
@@ -57,10 +54,7 @@ var contactsSchema = _mongoose["default"].Schema({
   },
   tage: [String],
   selectFile: String,
-  likeCount: {
-    type: Number,
-    "default": 0
-  },
+  viwesCount: [],
   creatAt: {
     type: Date,
     "default": new Date()

@@ -8,22 +8,25 @@ const router = express.Router()
 const io = new Server(3001)
 
 io.on('connection', socket => {
-  // console.log('connected') // false
+  // console.log('connection', socket.handshake.query.name)
 
-  // socket.on('new-position', position => {
-  //   // socket.emit('text', b)
-  //   console.log(position);
-
-  // })
+  a.User.where({ uid: socket.handshake.query.name })
+    .updateOne({ isOnline: true })
+    .exec()
 
   socket.on('disconnect', reason => {
+    a.User.where({ uid: socket.handshake.query.name })
+      .updateOne({ isOnline: false })
+      .exec()
+
+    // console.log('disconnect',socket.handshake.query.name)
     // console.log('disconnect ', socket.handshake.query.name)
   })
 })
 
 a.Messages.watch().on('change', change => {
   io.emit('new-message-' + change.fullDocument.contactId, change)
-  // console.log(change)
+  console.log(change)
 })
 
 // User
@@ -33,7 +36,7 @@ router.post('/user', function (req, res) {
     displayName: req.body.displayName,
     email: req.body.email,
     uid: req.body.uid,
-    isOnline:null,
+    isOnline: null,
     photoURL: req.body.photoURL
   })
   user.save()
@@ -94,6 +97,22 @@ router.post('/get_my_ads', function (req, res) {
   })
 })
 
+router.post('/views', function (req, res) {
+  console.log(req.body)
+
+
+  a.AdData.where({viwesCount:{$in:req.body.viewerId}}).findOne((err, data)=>{
+    console.log(data);
+  })
+
+  a.AdData.updateOne(
+    { _id: req.body.id },
+    { $push: { viwesCount: req.body.viewerId } }
+  ).then(e => {
+    console.log(e)
+  })
+})
+
 router.post('/delete', function (req, res) {
   a.AdData.findOneAndDelete({ _id: req.body.idForDelete }).then(deleted => {
     res.send('deleted')
@@ -103,13 +122,13 @@ router.post('/delete', function (req, res) {
 //Contacts Routs
 
 router.post('/contacts', function (req, res) {
+  console.log('tid')
+
   const contact = new a.ContactWithSeller(req.body)
   contact.save()
   a.ContactWithSeller.find().then(e => {
     res.send(e)
   })
-  console.log('tid');
-
 })
 
 router.post('/my_contacts', function (req, res) {
@@ -138,7 +157,7 @@ router.post('/my_contacts', function (req, res) {
 router.post('/messages', function (req, res) {
   const message = new a.Messages(req.body)
   message.save()
-  console.log(req.body);
+  console.log(req.body)
   a.Messages.find().then(e => {
     res.send(e)
   })
