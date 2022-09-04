@@ -75,6 +75,8 @@ router.post('/posts', function (req, res) {
     doc.save()
     a.AdData.find().then(e => {
       res.send(e)
+    console.log(req.body);
+
     })
   }
 })

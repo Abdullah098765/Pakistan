@@ -84,6 +84,7 @@ router.post('/posts', function (req, res) {
 
     _adData["default"].AdData.find().then(function (e) {
       res.send(e);
+      console.log(req.body);
     });
   }
 });

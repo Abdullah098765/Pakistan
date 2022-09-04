@@ -51,6 +51,7 @@ const messagesSchema = mongoose.Schema({
   senderId: String,
   senderPic: String,
   contactId: String,
+  file:String,
   likeCount: {
     type: Number,
     default: 0
