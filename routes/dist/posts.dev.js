@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var router = _express["default"].Router();
 
-var io = new _socket.Server(3001);
+var io = new _socket.Server(process.env.PORT);
 io.on('connection', function (socket) {
   // console.log('connection', socket.handshake.query.name)
   _adData["default"].User.where({

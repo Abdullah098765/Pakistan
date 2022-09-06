@@ -5,7 +5,7 @@ import { Server } from 'socket.io'
 
 const router = express.Router()
 
-const io = new Server(3001)
+const io = new Server(process.env.PORT)
 
 io.on('connection', socket => {
   // console.log('connection', socket.handshake.query.name)
