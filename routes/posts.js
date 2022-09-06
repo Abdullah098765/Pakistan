@@ -7,22 +7,7 @@ const router = express.Router()
 
 const io = new Server(process.env.PORT)
 
-io.on('connection', socket => {
-  // console.log('connection', socket.handshake.query.name)
 
-  a.User.where({ uid: socket.handshake.query.name })
-    .updateOne({ isOnline: true })
-    .exec()
-
-  socket.on('disconnect', reason => {
-    a.User.where({ uid: socket.handshake.query.name })
-      .updateOne({ isOnline: false })
-      .exec()
-
-    // console.log('disconnect',socket.handshake.query.name)
-    // console.log('disconnect ', socket.handshake.query.name)
-  })
-})
 
 a.Messages.watch().on('change', change => {
   io.emit('new-message-' + change.fullDocument.contactId, change)

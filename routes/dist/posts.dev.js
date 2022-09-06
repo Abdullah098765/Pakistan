@@ -18,24 +18,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 var io = new _socket.Server(process.env.PORT);
-io.on('connection', function (socket) {
-  // console.log('connection', socket.handshake.query.name)
-  _adData["default"].User.where({
-    uid: socket.handshake.query.name
-  }).updateOne({
-    isOnline: true
-  }).exec();
-
-  socket.on('disconnect', function (reason) {
-    _adData["default"].User.where({
-      uid: socket.handshake.query.name
-    }).updateOne({
-      isOnline: false
-    }).exec(); // console.log('disconnect',socket.handshake.query.name)
-    // console.log('disconnect ', socket.handshake.query.name)
-
-  });
-});
 
 _adData["default"].Messages.watch().on('change', function (change) {
   io.emit('new-message-' + change.fullDocument.contactId, change);
