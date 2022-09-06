@@ -23,6 +23,7 @@ app.use((0, _cors["default"])());
 app.use('/', _posts["default"]);
 var CONNECTION_URL = "mongodb+srv://testdb:mern123@testdb.nuqjg.mongodb.net/?retryWrites=true&w=majority";
 var PORT = process.env.PORT || 5001;
+console.log(PORT);
 
 _mongoose["default"].connect(CONNECTION_URL, {
   useNewUrlParser: true,

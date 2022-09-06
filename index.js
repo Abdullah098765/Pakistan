@@ -18,6 +18,7 @@ app.use('/', postRouter)
 
 const CONNECTION_URL = "mongodb+srv://testdb:mern123@testdb.nuqjg.mongodb.net/?retryWrites=true&w=majority"
 const PORT = process.env.PORT || 5001;
+console.log(PORT);
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopoLogy: true })
     .then((e) => {})
