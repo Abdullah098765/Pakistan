@@ -31,20 +31,20 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopoLogy: tr
     
     
     io.on('connection', socket => {
-        // console.log('connection', socket.handshake.query.name)
+        console.log('connection',' socket.handshake.query.name')
       
-        a.User.where({ uid: socket.handshake.query.name })
-          .updateOne({ isOnline: true })
-          .exec()
+        // a.User.where({ uid: socket.handshake.query.name })
+        //   .updateOne({ isOnline: true })
+        //   .exec()
       
-        socket.on('disconnect', reason => {
-          a.User.where({ uid: socket.handshake.query.name })
-            .updateOne({ isOnline: false })
-            .exec()
+        // socket.on('disconnect', reason => {
+        //   a.User.where({ uid: socket.handshake.query.name })
+        //     .updateOne({ isOnline: false })
+        //     .exec()
       
-          // console.log('disconnect',socket.handshake.query.name)
-          // console.log('disconnect ', socket.handshake.query.name)
-        })
+        //   // console.log('disconnect',socket.handshake.query.name)
+        //   // console.log('disconnect ', socket.handshake.query.name)
+        // })
       })
 
   

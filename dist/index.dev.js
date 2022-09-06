@@ -37,18 +37,14 @@ var server = app.listen(PORT, function (a) {
 });
 var io = new _socket.Server(server);
 io.on('connection', function (socket) {
-  // console.log('connection', socket.handshake.query.name)
-  a.User.where({
-    uid: socket.handshake.query.name
-  }).updateOne({
-    isOnline: true
-  }).exec();
-  socket.on('disconnect', function (reason) {
-    a.User.where({
-      uid: socket.handshake.query.name
-    }).updateOne({
-      isOnline: false
-    }).exec(); // console.log('disconnect',socket.handshake.query.name)
-    // console.log('disconnect ', socket.handshake.query.name)
-  });
+  console.log('connection', ' socket.handshake.query.name'); // a.User.where({ uid: socket.handshake.query.name })
+  //   .updateOne({ isOnline: true })
+  //   .exec()
+  // socket.on('disconnect', reason => {
+  //   a.User.where({ uid: socket.handshake.query.name })
+  //     .updateOne({ isOnline: false })
+  //     .exec()
+  //   // console.log('disconnect',socket.handshake.query.name)
+  //   // console.log('disconnect ', socket.handshake.query.name)
+  // })
 });
