@@ -10,8 +10,6 @@ var _cors = _interopRequireDefault(require("cors"));
 
 var _posts = _interopRequireDefault(require("./routes/posts.js"));
 
-var _socket = require("socket.io");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -23,28 +21,14 @@ app.use((0, _cors["default"])());
 app.use('/', _posts["default"]);
 var CONNECTION_URL = "mongodb+srv://testdb:mern123@testdb.nuqjg.mongodb.net/?retryWrites=true&w=majority";
 var PORT = process.env.PORT || 5001;
-console.log(PORT);
 
 _mongoose["default"].connect(CONNECTION_URL, {
   useNewUrlParser: true,
   useUnifiedTopoLogy: true
-}).then(function (e) {})["catch"](function (err) {
+}).then(function (e) {
+  app.listen(PORT, function (a) {
+    return console.log("Server running on port: ".concat(PORT));
+  });
+})["catch"](function (err) {
   console.log(err);
-});
-
-var server = app.listen(PORT, function (a) {
-  return console.log("Server running on port: ".concat(PORT));
-});
-var io = new _socket.Server(server);
-io.on('connection', function (socket) {
-  console.log('connection', ' socket.handshake.query.name'); // a.User.where({ uid: socket.handshake.query.name })
-  //   .updateOne({ isOnline: true })
-  //   .exec()
-  // socket.on('disconnect', reason => {
-  //   a.User.where({ uid: socket.handshake.query.name })
-  //     .updateOne({ isOnline: false })
-  //     .exec()
-  //   // console.log('disconnect',socket.handshake.query.name)
-  //   // console.log('disconnect ', socket.handshake.query.name)
-  // })
 });
