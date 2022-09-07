@@ -11,8 +11,6 @@ var _adData = _interopRequireDefault(require("./schema.js/adData.js"));
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _socket = require("socket.io");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var router = _express["default"].Router();

@@ -8,6 +8,8 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _cors = _interopRequireDefault(require("cors"));
 
+var _adData = _interopRequireDefault(require("./routes/schema.js/adData.js"));
+
 var _posts = _interopRequireDefault(require("./routes/posts.js"));
 
 var _socket = require("socket.io");
@@ -36,20 +38,28 @@ _mongoose["default"].connect(CONNECTION_URL, {
 var server = app.listen(PORT, function (a) {
   return console.log("Server running on port: ".concat(PORT));
 });
-var io = new _socket.Server(server, {// cors:{
-  //     origin:'http://localhost:3000/',
-  //     methods:["GET", 'POST']
-  // }
+var io = new _socket.Server(server, {
+  cors: {
+    origin: 'http://localhost:3000/',
+    methods: ['GET', 'POST']
+  }
 });
 io.on('connection', function (socket) {
-  console.log('connection', socket.id); // a.User.where({ uid: socket.handshake.query.name })
-  //   .updateOne({ isOnline: true })
-  //   .exec()
+  console.log('connection', socket.handshake.query.name);
+
+  _adData["default"].User.where({
+    uid: socket.handshake.query.name
+  }).updateOne({
+    isOnline: true
+  }).exec();
 
   socket.on('disconnect', function (reason) {
-    //   a.User.where({ uid: socket.handshake.query.name })
-    //     .updateOne({ isOnline: false })
-    //     .exec()
-    console.log('disconnect', socket.id); //   // console.log('disconnect ', socket.handshake.query.name)
+    _adData["default"].User.where({
+      uid: socket.handshake.query.name
+    }).updateOne({
+      isOnline: false
+    }).exec();
+
+    console.log('disconnect', socket.handshake.query.name); // console.log('disconnect ', socket.handshake.query.name)
   });
 });

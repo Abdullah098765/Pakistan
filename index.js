@@ -1,8 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import mongoose  from 'mongoose'
+import mongoose from 'mongoose'
 import cors from 'cors'
-
+import a from './routes/schema.js/adData.js'
 import postRouter from './routes/posts.js'
 import { Server } from 'socket.io'
 
@@ -21,44 +21,40 @@ mongoose
   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopoLogy: true })
   .then(e => {
     console.log('connected to MDB')
-    
   })
   .catch(err => {
     console.log(err)
   })
 
-
-
 const server = app.listen(PORT, a =>
   console.log(`Server running on port: ${PORT}`)
 )
 
-
 const io = new Server(server, {
-    // cors:{
-    //     origin:'http://localhost:3000/',
-    //     methods:["GET", 'POST']
-
-    // }
+  cors: {
+    origin: 'http://localhost:3000/',
+    methods: ['GET', 'POST']
+  }
 })
 
 
 
+
+
+
 io.on('connection', socket => {
-    console.log('connection', socket.id)
-  
-    // a.User.where({ uid: socket.handshake.query.name })
-    //   .updateOne({ isOnline: true })
-    //   .exec()
-  
-    socket.on('disconnect', reason => {
-    //   a.User.where({ uid: socket.handshake.query.name })
-    //     .updateOne({ isOnline: false })
-    //     .exec()
-  
-      console.log('disconnect',socket.id)
-    //   // console.log('disconnect ', socket.handshake.query.name)
-    })
+  console.log('connection', socket.handshake.query.name)
 
+  a.User.where({ uid: socket.handshake.query.name })
+    .updateOne({ isOnline: true })
+    .exec()
 
+  socket.on('disconnect', reason => {
+    a.User.where({ uid: socket.handshake.query.name })
+      .updateOne({ isOnline: false })
+      .exec()
+
+    console.log('disconnect',socket.handshake.query.name)
+    // console.log('disconnect ', socket.handshake.query.name)
   })
+})
