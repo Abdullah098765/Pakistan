@@ -58,3 +58,9 @@ io.on('connection', socket => {
     // console.log('disconnect ', socket.handshake.query.name)
   })
 })
+
+
+a.Messages.watch().on('change', change => {
+  io.emit('new-message-' + change.fullDocument.contactId, change)
+  console.log(change)
+})

@@ -13,12 +13,7 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var router = _express["default"].Router();
-
-_adData["default"].Messages.watch().on('change', function (change) {
-  io.emit('new-message-' + change.fullDocument.contactId, change);
-  console.log(change);
-}); // User
+var router = _express["default"].Router(); // User
 
 
 router.post('/user', function (req, res) {

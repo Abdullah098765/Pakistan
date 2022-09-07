@@ -7,11 +7,6 @@ const router = express.Router()
 
 
 
-a.Messages.watch().on('change', change => {
-  io.emit('new-message-' + change.fullDocument.contactId, change)
-  console.log(change)
-})
-
 // User
 
 router.post('/user', function (req, res) {

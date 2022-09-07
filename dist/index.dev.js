@@ -63,3 +63,8 @@ io.on('connection', function (socket) {
     console.log('disconnect', socket.handshake.query.name); // console.log('disconnect ', socket.handshake.query.name)
   });
 });
+
+_adData["default"].Messages.watch().on('change', function (change) {
+  io.emit('new-message-' + change.fullDocument.contactId, change);
+  console.log(change);
+});
