@@ -66,5 +66,5 @@ io.on('connection', function (socket) {
 
 _adData["default"].Messages.watch().on('change', function (change) {
   io.emit('new-message-' + change.fullDocument.contactId, change);
-  console.log(change);
+  console.log(change.fullDocument.contactId);
 });

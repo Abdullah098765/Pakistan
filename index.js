@@ -62,5 +62,5 @@ io.on('connection', socket => {
 
 a.Messages.watch().on('change', change => {
   io.emit('new-message-' + change.fullDocument.contactId, change)
-  console.log(change)
+  console.log(change.fullDocument.contactId)
 })
