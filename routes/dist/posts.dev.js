@@ -118,14 +118,19 @@ router.post('/edit_ad', function (req, res) {
 });
 setInterval(function () {
   _adData["default"].AdData.find({
-    age: {
-      $gt: 17,
-      $lt: 66
+    timestamp: {
+      $lt: Date.now() - 900000
     }
+  }).updateMany({
+    expired: true
+  }, {
+    expired: false
+  }, {
+    expired: true
   }).then(function (data) {
     console.log(data);
   });
-}, 30000); //Contacts Routs
+}, 2000); //Contacts Routs
 
 router.post('/contacts', function (req, res) {
   console.log('tid');

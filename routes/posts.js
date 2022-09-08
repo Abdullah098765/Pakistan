@@ -106,13 +106,13 @@ router.post('/edit_ad', function (req, res) {
 setInterval(() => {
 
   a.AdData.find({
-    age: { $gt: 17, $lt: 66 },
-  }).then((data)=>{
+    timestamp: { $lt: Date.now()-900000 },
+  }).updateMany({expired:true}, {expired:false},{expired:true}).then((data)=>{
     console.log(data)
 
   })
 
-}, 30000)
+}, 2000)
 
 //Contacts Routs
 
