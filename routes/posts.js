@@ -1,6 +1,9 @@
 import express from 'express'
 import a from './schema.js/adData.js'
 import mongoose from 'mongoose'
+// import { io } from '../socket/io.js'
+import schedule from 'node-schedule'
+
 
 const router = express.Router()
 
@@ -103,17 +106,6 @@ router.post('/edit_ad', function (req, res) {
   })
 })
 
-setInterval(() => {
-
-  a.AdData.where({
-    timestamp: { $lt: Date.now()-180000 },
-  }).find().updateMany({expired:false}, {expired:true}).then((data)=>{
-    console.log(data)
-
-  })
-
-}, 2000)
-
 //Contacts Routs
 
 router.post('/contacts', function (req, res) {
@@ -162,6 +154,39 @@ router.post('/on-focus-on-contact', function (req, res) {
   a.Messages.find({ contactId: req.body.contactId }).then(e => {
     res.send(e)
   })
+})
+
+// io.on('connection', socket => {
+//   console.log('connection', socket.handshake.query.name)
+
+//   a.User.where({ uid: socket.handshake.query.name })
+//     .updateOne({ isOnline: true })
+//     .exec()
+
+//   socket.on('disconnect', reason => {
+//     a.User.where({ uid: socket.handshake.query.name })
+//       .updateOne({ isOnline: false })
+//       .exec()
+
+//     console.log('disconnect',socket.handshake.query.name)
+//     // console.log('disconnect ', socket.handshake.query.name)
+//   })
+// })
+
+// a.Messages.watch().on('change', change => {
+//   io.emit('new-message-' + change.fullDocument.contactId, change)
+//   console.log(change.fullDocument.contactId)
+// })
+
+
+schedule.scheduleJob('3 * * * * *', function () {
+  a.AdData.find()
+    .updateMany({ timestamp: { $lt: Date.now() - 18000 } }, { expired: false })
+    .then(data => {
+      console.log(data)
+    })
+
+  console.log('The answer to life, the universe, and everything!')
 })
 
 export default router

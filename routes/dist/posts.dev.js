@@ -11,8 +11,11 @@ var _adData = _interopRequireDefault(require("./schema.js/adData.js"));
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
+var _nodeSchedule = _interopRequireDefault(require("node-schedule"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+// import { io } from '../socket/io.js'
 var router = _express["default"].Router(); // User
 
 
@@ -115,20 +118,7 @@ router.post('/edit_ad', function (req, res) {
   }, req.body).then(function (update) {
     console.log(update);
   });
-});
-setInterval(function () {
-  _adData["default"].AdData.where({
-    timestamp: {
-      $lt: Date.now() - 180000
-    }
-  }).find().updateMany({
-    expired: false
-  }, {
-    expired: true
-  }).then(function (data) {
-    console.log(data);
-  });
-}, 2000); //Contacts Routs
+}); //Contacts Routs
 
 router.post('/contacts', function (req, res) {
   console.log('tid');
@@ -167,6 +157,37 @@ router.post('/on-focus-on-contact', function (req, res) {
   }).then(function (e) {
     res.send(e);
   });
+}); // io.on('connection', socket => {
+//   console.log('connection', socket.handshake.query.name)
+//   a.User.where({ uid: socket.handshake.query.name })
+//     .updateOne({ isOnline: true })
+//     .exec()
+//   socket.on('disconnect', reason => {
+//     a.User.where({ uid: socket.handshake.query.name })
+//       .updateOne({ isOnline: false })
+//       .exec()
+//     console.log('disconnect',socket.handshake.query.name)
+//     // console.log('disconnect ', socket.handshake.query.name)
+//   })
+// })
+// a.Messages.watch().on('change', change => {
+//   io.emit('new-message-' + change.fullDocument.contactId, change)
+//   console.log(change.fullDocument.contactId)
+// })
+
+_nodeSchedule["default"].scheduleJob('3 * * * * *', function () {
+  _adData["default"].AdData.find().updateMany({
+    timestamp: {
+      $lt: Date.now() - 18000
+    }
+  }, {
+    expired: false
+  }).then(function (data) {
+    console.log(data);
+  });
+
+  console.log('The answer to life, the universe, and everything!');
 });
+
 var _default = router;
 exports["default"] = _default;
