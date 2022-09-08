@@ -4,9 +4,6 @@ import mongoose from 'mongoose'
 
 const router = express.Router()
 
-
-
-
 // User
 
 router.post('/user', function (req, res) {
@@ -53,8 +50,7 @@ router.post('/posts', function (req, res) {
     doc.save()
     a.AdData.find().then(e => {
       res.send(e)
-    console.log(req.body);
-
+      console.log(req.body)
     })
   }
 })
@@ -80,10 +76,11 @@ router.post('/get_my_ads', function (req, res) {
 router.post('/views', function (req, res) {
   console.log(req.body)
 
-
-  a.AdData.where({viwesCount:{$in:req.body.viewerId}}).findOne((err, data)=>{
-    console.log(data);
-  })
+  a.AdData.where({ viwesCount: { $in: req.body.viewerId } }).findOne(
+    (err, data) => {
+      console.log(data)
+    }
+  )
 
   a.AdData.updateOne(
     { _id: req.body.id },
@@ -96,6 +93,13 @@ router.post('/views', function (req, res) {
 router.post('/delete', function (req, res) {
   a.AdData.findOneAndDelete({ _id: req.body.idForDelete }).then(deleted => {
     res.send('deleted')
+  })
+})
+
+router.post('/edit_ad', function (req, res) {
+  // console.log(req.body)
+  a.AdData.findOneAndUpdate({ _id: req.body._id }, req.body).then((update)=>{
+console.log(update);
   })
 })
 

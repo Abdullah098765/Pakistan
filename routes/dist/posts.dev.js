@@ -107,6 +107,14 @@ router.post('/delete', function (req, res) {
   }).then(function (deleted) {
     res.send('deleted');
   });
+});
+router.post('/edit_ad', function (req, res) {
+  // console.log(req.body)
+  _adData["default"].AdData.findOneAndUpdate({
+    _id: req.body._id
+  }, req.body).then(function (update) {
+    console.log(update);
+  });
 }); //Contacts Routs
 
 router.post('/contacts', function (req, res) {
