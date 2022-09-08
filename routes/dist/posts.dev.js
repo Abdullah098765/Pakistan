@@ -181,7 +181,7 @@ _nodeSchedule["default"].scheduleJob('3 * * * * *', function () {
       $lt: Date.now() - 18000
     }
   }, {
-    expired: false
+    expired: true
   }).then(function (data) {
     console.log(data);
   });

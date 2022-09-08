@@ -181,7 +181,7 @@ router.post('/on-focus-on-contact', function (req, res) {
 
 schedule.scheduleJob('3 * * * * *', function () {
   a.AdData.find()
-    .updateMany({ timestamp: { $lt: Date.now() - 18000 } }, { expired: false })
+    .updateMany({ timestamp: { $lt: Date.now() - 18000 } }, { expired: true })
     .then(data => {
       console.log(data)
     })
