@@ -117,15 +117,12 @@ router.post('/edit_ad', function (req, res) {
   });
 });
 setInterval(function () {
-  _adData["default"].AdData.where({
+  _adData["default"].AdData.find({
     timestamp: {
-      $lt: Date.now() - 900000
+      $lt: Date.now() - 180000
     }
   }).updateMany({
-    expired: false,
-    timestamp: {
-      $lt: Date.now() - 900000
-    }
+    expired: false
   }, {
     expired: true
   }).then(function (data) {

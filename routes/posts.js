@@ -105,9 +105,9 @@ router.post('/edit_ad', function (req, res) {
 
 setInterval(() => {
 
-  a.AdData.where({
-    timestamp: { $lt: Date.now()-900000 },
-  }).updateMany({expired:false,timestamp: { $lt: Date.now()-900000 }},{expired:true}).then((data)=>{
+  a.AdData.find({
+    timestamp: { $lt: Date.now()-180000 },
+  }).updateMany({expired:false}, {expired:true}).then((data)=>{
     console.log(data)
 
   })
