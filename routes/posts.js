@@ -107,7 +107,7 @@ setInterval(() => {
 
   a.AdData.where({
     timestamp: { $lt: Date.now()-900000 },
-  }).updateMany({expired:false},{expired:true}).then((data)=>{
+  }).updateMany({expired:false,timestamp: { $lt: Date.now()-900000 }},{expired:true}).then((data)=>{
     console.log(data)
 
   })

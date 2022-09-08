@@ -122,7 +122,10 @@ setInterval(function () {
       $lt: Date.now() - 900000
     }
   }).updateMany({
-    expired: false
+    expired: false,
+    timestamp: {
+      $lt: Date.now() - 900000
+    }
   }, {
     expired: true
   }).then(function (data) {
