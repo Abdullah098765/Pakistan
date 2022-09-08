@@ -117,7 +117,7 @@ router.post('/edit_ad', function (req, res) {
   });
 });
 setInterval(function () {
-  _adData["default"].AdData.find({
+  _adData["default"].AdData.where({
     timestamp: {
       $lt: Date.now() - 180000
     }
