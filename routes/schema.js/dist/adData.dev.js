@@ -23,13 +23,15 @@ var adSchema = _mongoose["default"].Schema({
   },
   ownerName: String,
   ownerId: String,
+  expired: Boolean,
   tage: [String],
   selectFile: String,
   viwesCount: [],
   creatAt: {
     type: Date,
     "default": new Date()
-  }
+  },
+  timestamp: Number
 });
 
 var contactsSchema = _mongoose["default"].Schema({

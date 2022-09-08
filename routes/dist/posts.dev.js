@@ -115,7 +115,17 @@ router.post('/edit_ad', function (req, res) {
   }, req.body).then(function (update) {
     console.log(update);
   });
-}); //Contacts Routs
+});
+setInterval(function () {
+  _adData["default"].AdData.find({
+    age: {
+      $gt: 17,
+      $lt: 66
+    }
+  }).then(function (data) {
+    console.log(data);
+  });
+}, 30000); //Contacts Routs
 
 router.post('/contacts', function (req, res) {
   console.log('tid');

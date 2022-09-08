@@ -98,10 +98,21 @@ router.post('/delete', function (req, res) {
 
 router.post('/edit_ad', function (req, res) {
   // console.log(req.body)
-  a.AdData.findOneAndUpdate({ _id: req.body._id }, req.body).then((update)=>{
-console.log(update);
+  a.AdData.findOneAndUpdate({ _id: req.body._id }, req.body).then(update => {
+    console.log(update)
   })
 })
+
+setInterval(() => {
+
+  a.AdData.find({
+    age: { $gt: 17, $lt: 66 },
+  }).then((data)=>{
+    console.log(data)
+
+  })
+
+}, 30000)
 
 //Contacts Routs
 

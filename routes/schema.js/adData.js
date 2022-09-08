@@ -11,13 +11,15 @@ const adSchema = mongoose.Schema({
   seller: { type: mongoose.Types.ObjectId, ref: 'user' },
   ownerName: String,
   ownerId: String,
+  expired: Boolean,
   tage: [String],
   selectFile: String,
-  viwesCount:[],
+  viwesCount: [],
   creatAt: {
     type: Date,
     default: new Date()
-  }
+  },
+  timestamp: Number
 })
 const contactsSchema = mongoose.Schema({
   adName: String,
@@ -51,7 +53,7 @@ const messagesSchema = mongoose.Schema({
   senderId: String,
   senderPic: String,
   contactId: String,
-  file:{fileURL:String, fileType:String},
+  file: { fileURL: String, fileType: String },
   likeCount: {
     type: Number,
     default: 0
