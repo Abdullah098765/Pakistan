@@ -121,7 +121,7 @@ setInterval(function () {
     timestamp: {
       $lt: Date.now() - 180000
     }
-  }).updateMany({
+  }).find().updateMany({
     expired: false
   }, {
     expired: true
