@@ -118,7 +118,22 @@ router.post('/edit_ad', function (req, res) {
   }, req.body).then(function (update) {
     console.log(update);
   });
-}); //Contacts Routs
+}); // Admin Ad Routs
+// router.post('/get_post_filter', function (req, res) {
+//   if (req.body.filterBy === 'Expired') {
+//     console.log(req.body.filterBy)
+//     a.AdData.find({ expired: true }).then(e => {
+//       res.send(e)
+//     })
+//   } else if (req.body.filterBy === 'Recent') {
+//     console.log(req.body.filterBy)
+//     a.AdData.find({ expired: false }).then(e => {
+//       res.send(e)
+//     })
+//   }
+//   console.log(req.body.filterBy)
+// })
+//Contacts Routs
 
 router.post('/contacts', function (req, res) {
   console.log('tid');
@@ -176,17 +191,13 @@ router.post('/on-focus-on-contact', function (req, res) {
 // })
 
 _nodeSchedule["default"].scheduleJob('3 * * * * *', function () {
-  _adData["default"].AdData.find().updateMany({
+  _adData["default"].AdData.find({
     timestamp: {
-      $lt: Date.now() - 18000
+      $lt: Date.now() - 43200000
     }
-  }, {
+  }).updateMany({
     expired: true
-  }).then(function (data) {
-    console.log(data);
-  });
-
-  console.log('The answer to life, the universe, and everything!');
+  }).exec();
 });
 
 var _default = router;

@@ -4,7 +4,6 @@ import mongoose from 'mongoose'
 // import { io } from '../socket/io.js'
 import schedule from 'node-schedule'
 
-
 const router = express.Router()
 
 // User
@@ -105,6 +104,22 @@ router.post('/edit_ad', function (req, res) {
     console.log(update)
   })
 })
+// Admin Ad Routs
+// router.post('/get_post_filter', function (req, res) {
+//   if (req.body.filterBy === 'Expired') {
+//     console.log(req.body.filterBy)
+//     a.AdData.find({ expired: true }).then(e => {
+//       res.send(e)
+//     })
+//   } else if (req.body.filterBy === 'Recent') {
+//     console.log(req.body.filterBy)
+
+//     a.AdData.find({ expired: false }).then(e => {
+//       res.send(e)
+//     })
+//   }
+//   console.log(req.body.filterBy)
+// })
 
 //Contacts Routs
 
@@ -178,15 +193,10 @@ router.post('/on-focus-on-contact', function (req, res) {
 //   console.log(change.fullDocument.contactId)
 // })
 
-
 schedule.scheduleJob('3 * * * * *', function () {
-  a.AdData.find()
-    .updateMany({ timestamp: { $lt: Date.now() - 18000 } }, { expired: true })
-    .then(data => {
-      console.log(data)
-    })
-
-  console.log('The answer to life, the universe, and everything!')
+  a.AdData.find({ timestamp: { $lt: Date.now() - 43200000 } })
+    .updateMany({ expired: true })
+    .exec()
 })
 
 export default router
