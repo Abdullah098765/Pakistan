@@ -191,7 +191,7 @@ router.post('/on-focus-on-contact', function (req, res) {
 // })
 
 _nodeSchedule["default"].scheduleJob('3 * * * * *', function () {
-  _adData["default"].AdData.find({
+  _adData["default"].AdData.where({
     timestamp: {
       $lt: Date.now() - 43200000
     }

@@ -194,7 +194,7 @@ router.post('/on-focus-on-contact', function (req, res) {
 // })
 
 schedule.scheduleJob('3 * * * * *', function () {
-  a.AdData.find({ timestamp: { $lt: Date.now() - 43200000 } })
+  a.AdData.where({ timestamp: { $lt: Date.now() - 43200000 } })
     .updateMany({ expired: true })
     .exec()
 })
