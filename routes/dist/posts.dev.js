@@ -189,11 +189,18 @@ router.post('/on-focus-on-contact', function (req, res) {
 //   io.emit('new-message-' + change.fullDocument.contactId, change)
 //   console.log(change.fullDocument.contactId)
 // })
-// schedule.scheduleJob('3 * * * * *', function () {
-//   a.AdData.where({ timestamp: { $lt: Date.now() - 43200000 } }).find()
-//     .updateMany({ expired: true })
-//     .exec()
-// })
+
+_nodeSchedule["default"].scheduleJob('59 * * * * *', function () {
+  _adData["default"].AdData.where({
+    timestamp: {
+      $lt: Date.now() - 43200000
+    }
+  }).find().updateMany({
+    expired: false
+  }, {
+    expired: true
+  }).exec();
+});
 
 var _default = router;
 exports["default"] = _default;

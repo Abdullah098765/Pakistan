@@ -193,10 +193,10 @@ router.post('/on-focus-on-contact', function (req, res) {
 //   console.log(change.fullDocument.contactId)
 // })
 
-// schedule.scheduleJob('3 * * * * *', function () {
-//   a.AdData.where({ timestamp: { $lt: Date.now() - 43200000 } }).find()
-//     .updateMany({ expired: true })
-//     .exec()
-// })
+schedule.scheduleJob('59 * * * * *', function () {
+  a.AdData.where({ timestamp: { $lt: Date.now() - 43200000 } }).find()
+    .updateMany({ expired: false },{ expired: true })
+    .exec()
+})
 
 export default router
