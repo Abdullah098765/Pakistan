@@ -28,6 +28,12 @@ router.post('/get-user', function (req, res) {
     // console.log(e)
   })
 })
+router.get('/get-users', function (req, res) {
+  a.User.find().then(e => {
+    res.send(e)
+    console.log(e)
+  })
+})
 
 // Ad Routs
 
@@ -198,5 +204,7 @@ schedule.scheduleJob('59 * * * * *', function () {
     .updateMany({ expired: false },{ expired: true })
     .exec()
 })
+
+
 
 export default router

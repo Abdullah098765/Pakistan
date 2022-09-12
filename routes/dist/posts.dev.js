@@ -39,6 +39,12 @@ router.post('/get-user', function (req, res) {
   }).then(function (e) {
     res.send(e); // console.log(e)
   });
+});
+router.get('/get-users', function (req, res) {
+  _adData["default"].User.find().then(function (e) {
+    res.send(e);
+    console.log(e);
+  });
 }); // Ad Routs
 
 router.post('/posts', function (req, res) {
