@@ -65,6 +65,7 @@ var contactsSchema = _mongoose["default"].Schema({
 
 var userSchema = _mongoose["default"].Schema({
   displayName: String,
+  blocked: Boolean,
   email: String,
   uid: String,
   photoURL: String,
@@ -77,7 +78,6 @@ var messagesSchema = _mongoose["default"].Schema({
   senderId: String,
   senderPic: String,
   contactId: String,
-  blocked: Boolean,
   file: {
     fileURL: String,
     fileType: String

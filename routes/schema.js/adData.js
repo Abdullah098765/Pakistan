@@ -42,6 +42,7 @@ const contactsSchema = mongoose.Schema({
 })
 const userSchema = mongoose.Schema({
   displayName: String,
+  blocked:Boolean,
   email: String,
   uid: String,
   photoURL: String,
@@ -53,7 +54,6 @@ const messagesSchema = mongoose.Schema({
   senderId: String,
   senderPic: String,
   contactId: String,
-  blocked:Boolean,
   file: { fileURL: String, fileType: String },
   likeCount: {
     type: Number,
