@@ -14,7 +14,7 @@ router.post('/user', function (req, res) {
     email: req.body.email,
     uid: req.body.uid,
     isOnline: null,
-    blocked:false,
+    blocked: false,
     photoURL: req.body.photoURL
   })
   user.save()
@@ -37,10 +37,12 @@ router.get('/get-users', function (req, res) {
 })
 router.post('/block_user', function (req, res) {
   console.log(req.body)
-  // a.User.find().then(e => {
-  //   res.send(e)
-  //   console.log(e)
-  // })
+  a.User.findOneAndUpdate({ uid: req.body.userUid }, { bolocked: true }).then(
+    e => {
+      // res.send(e)
+      console.log(e)
+    }
+  )
 })
 
 // Ad Routs

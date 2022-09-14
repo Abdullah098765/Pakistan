@@ -42,7 +42,7 @@ const contactsSchema = mongoose.Schema({
 })
 const userSchema = mongoose.Schema({
   displayName: String,
-  blocked:Boolean,
+  blocked: Boolean,
   email: String,
   uid: String,
   photoURL: String,

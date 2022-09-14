@@ -47,10 +47,16 @@ router.get('/get-users', function (req, res) {
   });
 });
 router.post('/block_user', function (req, res) {
-  console.log(req.body); // a.User.find().then(e => {
-  //   res.send(e)
-  //   console.log(e)
-  // })
+  console.log(req.body);
+
+  _adData["default"].User.findOneAndUpdate({
+    uid: req.body.userUid
+  }, {
+    bolocked: true
+  }).then(function (e) {
+    // res.send(e)
+    console.log(e);
+  });
 }); // Ad Routs
 
 router.post('/posts', function (req, res) {
