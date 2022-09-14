@@ -53,6 +53,7 @@ const messagesSchema = mongoose.Schema({
   senderId: String,
   senderPic: String,
   contactId: String,
+  blocked:Boolean,
   file: { fileURL: String, fileType: String },
   likeCount: {
     type: Number,

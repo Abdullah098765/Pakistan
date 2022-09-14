@@ -25,6 +25,7 @@ router.post('/user', function (req, res) {
     email: req.body.email,
     uid: req.body.uid,
     isOnline: null,
+    blocked: false,
     photoURL: req.body.photoURL
   });
   user.save();
@@ -42,9 +43,14 @@ router.post('/get-user', function (req, res) {
 });
 router.get('/get-users', function (req, res) {
   _adData["default"].User.find().then(function (e) {
-    res.send(e);
-    console.log(e);
+    res.send(e); // console.log(e)
   });
+});
+router.post('/block_user', function (req, res) {
+  console.log(req.body); // a.User.find().then(e => {
+  //   res.send(e)
+  //   console.log(e)
+  // })
 }); // Ad Routs
 
 router.post('/posts', function (req, res) {

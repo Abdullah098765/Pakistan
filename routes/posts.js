@@ -14,6 +14,7 @@ router.post('/user', function (req, res) {
     email: req.body.email,
     uid: req.body.uid,
     isOnline: null,
+    blocked:false,
     photoURL: req.body.photoURL
   })
   user.save()
@@ -31,8 +32,15 @@ router.post('/get-user', function (req, res) {
 router.get('/get-users', function (req, res) {
   a.User.find().then(e => {
     res.send(e)
-    console.log(e)
+    // console.log(e)
   })
+})
+router.post('/block_user', function (req, res) {
+  console.log(req.body)
+  // a.User.find().then(e => {
+  //   res.send(e)
+  //   console.log(e)
+  // })
 })
 
 // Ad Routs
@@ -200,11 +208,10 @@ router.post('/on-focus-on-contact', function (req, res) {
 // })
 
 schedule.scheduleJob('59 * * * * *', function () {
-  a.AdData.where({ timestamp: { $lt: Date.now() - 43200000 } }).find()
-    .updateMany({ expired: false },{ expired: true })
+  a.AdData.where({ timestamp: { $lt: Date.now() - 43200000 } })
+    .find()
+    .updateMany({ expired: false }, { expired: true })
     .exec()
 })
-
-
 
 export default router

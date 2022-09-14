@@ -77,6 +77,7 @@ var messagesSchema = _mongoose["default"].Schema({
   senderId: String,
   senderPic: String,
   contactId: String,
+  blocked: Boolean,
   file: {
     fileURL: String,
     fileType: String
