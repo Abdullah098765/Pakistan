@@ -12,6 +12,8 @@ const adSchema = mongoose.Schema({
   ownerName: String,
   ownerId: String,
   expired: Boolean,
+  latitude: Number,
+  longitude: Number,
   tage: [String],
   selectFile: String,
   viwesCount: [],

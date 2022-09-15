@@ -47,16 +47,21 @@ router.get('/get-users', function (req, res) {
   });
 });
 router.post('/block_user', function (req, res) {
-  console.log(req.body);
-
-  _adData["default"].User.findOneAndUpdate({
+  _adData["default"].User.where({
     uid: req.body.userUid
-  }, {
-    bolocked: true
-  }).then(function (e) {
-    // res.send(e)
-    console.log(e);
-  });
+  }).updateOne({
+    blocked: true
+  }).exec();
+
+  console.log(req.body);
+});
+router.post('/unblock', function (req, res) {
+  _adData["default"].User.where({
+    uid: req.body.userUid
+  }).updateOne({
+    blocked: false
+  }).exec(); // console.log(req.body)
+
 }); // Ad Routs
 
 router.post('/posts', function (req, res) {
@@ -135,6 +140,22 @@ router.post('/edit_ad', function (req, res) {
     _id: req.body._id
   }, req.body).then(function (update) {
     console.log(update);
+  });
+});
+router.post('/search_ads', function (req, res) {
+  _adData["default"].AdData.where({
+    $or: [{
+      adTitle: {
+        $regex: new RegExp(req.body.searchValue, 'gi')
+      }
+    }, {
+      adDiscription: {
+        $regex: new RegExp(req.body.searchValue, 'gi')
+      }
+    }]
+  }).find().then(function (e) {
+    res.send(e);
+    console.log(e);
   });
 }); // Admin Ad Routs
 // router.post('/get_post_filter', function (req, res) {

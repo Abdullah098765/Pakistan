@@ -36,13 +36,16 @@ router.get('/get-users', function (req, res) {
   })
 })
 router.post('/block_user', function (req, res) {
+  a.User.where({ uid: req.body.userUid })
+    .updateOne({ blocked: true })
+    .exec()
   console.log(req.body)
-  a.User.findOneAndUpdate({ uid: req.body.userUid }, { bolocked: true }).then(
-    e => {
-      // res.send(e)
-      console.log(e)
-    }
-  )
+})
+router.post('/unblock', function (req, res) {
+  a.User.where({ uid: req.body.userUid })
+    .updateOne({ blocked: false })
+    .exec()
+  // console.log(req.body)
 })
 
 // Ad Routs
@@ -119,6 +122,25 @@ router.post('/edit_ad', function (req, res) {
   a.AdData.findOneAndUpdate({ _id: req.body._id }, req.body).then(update => {
     console.log(update)
   })
+})
+
+router.post('/search_ads', function (req, res) {
+  a.AdData.where({
+    $or: [
+      {
+        adTitle: { $regex: new RegExp(req.body.searchValue, 'gi') }
+      },
+      {
+        adDiscription:{ $regex: new RegExp(req.body.searchValue, 'gi') }
+      }
+    ]
+  })
+    .find()
+    .then(e => {
+      res.send(e)
+      console.log(e);
+    })
+
 })
 // Admin Ad Routs
 // router.post('/get_post_filter', function (req, res) {
