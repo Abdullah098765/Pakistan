@@ -6,7 +6,7 @@ const adSchema = mongoose.Schema({
   brand: String,
   condition: String,
   city: String,
-  img: String,
+  images: Array,
   price: String,
   seller: { type: mongoose.Types.ObjectId, ref: 'user' },
   ownerName: String,
