@@ -65,6 +65,8 @@ router.post('/unblock', function (req, res) {
 }); // Ad Routs
 
 router.post('/posts', function (req, res) {
+  console.log('Pakistan');
+
   if (req.body.id !== undefined) {
     // a.AdData.populate('user')
     //   .findOne({ _id: req.body.id })
